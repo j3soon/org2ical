@@ -1,0 +1,40 @@
+name: tests
+on:
+  - push
+  - pull_request
+jobs:
+  test-with-tox:
+    name: Test with tox
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      matrix:
+        # https://help.github.com/articles/virtual-environments-for-github-actions
+        platform:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        python-version: ['3.7', '3.8', '3.9', '3.10']
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install tox tox-gh-actions
+    - name: Test with tox
+      run: tox
+    - name: Prepare code coverage data
+      if: matrix.platform == 'ubuntu-latest' && matrix.python-version == 3.9
+      run: |
+        # TODO: Use pip install orgparse after merged
+        pip install git+https://github.com/karlicoss/orgparse.git@refs/pull/60/head
+        pip install icalendar pytest pytest-cov
+        pytest --cov=./ --cov-report xml
+    - name: Upload coverage to Codecov
+      if: matrix.platform == 'ubuntu-latest' && matrix.python-version == 3.9
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
