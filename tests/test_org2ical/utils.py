@@ -36,10 +36,10 @@ class iCalEntry():
 def compare(org_str: str, icals: List[iCalEntry], warnings=[], *,
         prod_id: str = "-//j3soon//org2ical//EN",
         now: datetime = datetime(2021, 1, 1, 0, 0, 0, 0, timezone.utc),
-        categories: Set[str] = set(),
-        ignore_states: Set[str] = {"DONE", "CANCELED"},
-        ignore_tags: Set[str] = {"ARCHIVE"},
-        include_types: Set[str] = {org2ical.DEADLINE, org2ical.SCHEDULED, org2ical.TIMESTAMP},
+        categories: Set[str] = None,
+        ignore_states: Set[str] = None,
+        ignore_tags: Set[str] = None,
+        include_types: Set[str] = None,
     ):
     ical_str, warnings_ = org2ical.loads(
         org_str,
