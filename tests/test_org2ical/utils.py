@@ -40,6 +40,8 @@ def compare(org_str: str, icals: List[iCalEntry], warnings=[], *,
         ignore_states: Set[str] = None,
         ignore_tags: Set[str] = None,
         include_types: Set[str] = None,
+        from_tz: timezone = timezone.utc,
+        to_tz: timezone = timezone.utc,
     ):
     ical_str, warnings_ = org2ical.loads(
         org_str,
@@ -49,13 +51,20 @@ def compare(org_str: str, icals: List[iCalEntry], warnings=[], *,
         ignore_states=ignore_states,
         ignore_tags=ignore_tags,
         include_types=include_types,
+        from_tz=from_tz,
+        to_tz=to_tz,
     )
     cal = icalendar.Calendar.from_ical(ical_str)
+    now = now.replace(tzinfo=to_tz)
+    now = now.astimezone(tz=from_tz)
+    now = now.replace(tzinfo=timezone.utc)
     i = 0
     for component in cal.walk():
         if component.name == "VEVENT":
             print(f"[{i}]")
-            assert str(component['dtstamp'].dt) == "2021-01-01 00:00:00+00:00"
+            # print("Expected:", str(component['dtstamp'].dt))
+            # print("Actual  :", str(now))
+            assert str(component['dtstamp'].dt) == str(now)
             assert component['uid'] != ""
             ical = icals[i]
             print("Expected:", ical.dtstart)

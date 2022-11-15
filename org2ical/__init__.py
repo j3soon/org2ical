@@ -28,6 +28,8 @@ def loads(
         ignore_states: Optional[Set[str]] = None,
         ignore_tags: Optional[Set[str]] = None,
         include_types: Optional[Set[str]] = None,
+        from_tz: timezone = timezone.utc,
+        to_tz: timezone = timezone.utc,
         ) -> Tuple[str, List[str]]:
     """Returns the generated ical string and a list of warnings."""
 
@@ -42,7 +44,10 @@ def loads(
 
     def _encode_datetime(dt: datetime) -> str:
         """Encodes a datetime object into an iCalendar-compatible string."""
-        return dt.replace(tzinfo=timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        # The replacement here is reversed to mitigate the time difference.
+        dt = dt.replace(tzinfo=to_tz)
+        dt = dt.astimezone(tz=from_tz)
+        return dt.strftime("%Y%m%dT%H%M%SZ")
 
     def _encode_date(d: Union[date, datetime]) -> str:
         """Encodes a date or datetime object into an iCalendar-compatible

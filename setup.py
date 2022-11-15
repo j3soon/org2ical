@@ -37,7 +37,7 @@ setuptools.setup(
         # TODO: Add orgparse after merged
     ],
     extras_require={
-        "testing": ["pytest", "mypy", "flake8", "pylint", "icalendar"],
+        "testing": ["pytest", "mypy", "flake8", "pylint", "icalendar", "python-dateutil"],
     },
 )
 

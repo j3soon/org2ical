@@ -1,6 +1,9 @@
 import textwrap
 
+import dateutil.tz
+
 from .utils import compare, iCalEntry
+
 
 def test_scheduled():
     org_str = textwrap.dedent("""\
@@ -222,3 +225,34 @@ def test_next():
     compare(org_str, icals)
     compare(org_str, [], ignore_states={None})
     compare(org_str, [], ignore_states={"NEXT"})
+
+def test_timezone():
+    org_str = textwrap.dedent("""\
+    * Entry
+    SCHEDULED: <2022-01-01 Sat 10:00>
+    """)
+    # UTC -> UTC
+    icals = [
+        iCalEntry("2022-01-01 10:00:00+00:00", None, "Entry", "", "SCHEDULED"),
+    ]
+    compare(org_str, icals)
+    # UTC -> UTC+8
+    icals = [
+        iCalEntry("2022-01-01 02:00:00+00:00", None, "Entry", "", "SCHEDULED"),
+    ]
+    compare(org_str, icals, to_tz=dateutil.tz.gettz('Asia/Taipei'))
+    # UTC+8 -> UTC
+    icals = [
+        iCalEntry("2022-01-01 18:00:00+00:00", None, "Entry", "", "SCHEDULED"),
+    ]
+    compare(org_str, icals, from_tz=dateutil.tz.gettz("Asia/Taipei"))
+    # UTC+8 -> UTC+9
+    icals = [
+        iCalEntry("2022-01-01 09:00:00+00:00", None, "Entry", "", "SCHEDULED"),
+    ]
+    compare(org_str, icals,
+            from_tz=dateutil.tz.gettz("Asia/Taipei"),
+            to_tz=dateutil.tz.gettz('Asia/Tokyo'))
+    # Don't use pytz for tests, see:
+    # - https://stackoverflow.com/a/48566388
+    # - https://stackoverflow.com/q/11473721
