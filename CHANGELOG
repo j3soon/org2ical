@@ -1,0 +1,17 @@
+Change Log
+===================================
+
+v0.0.2
+-----------------------------------
+
+Features:
+
+* Add timezone
+
+v0.0.1
+-----------------------------------
+
+Features:
+
+* Add basic parsing logic
+* Add tests
