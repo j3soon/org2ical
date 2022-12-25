@@ -65,3 +65,18 @@ END:VCALENDAR
 ```
 
 Please note that the `DTSTAMP` here depends on your current time.
+
+## Import to Thunderbird's Lightning Calendar
+
+![](docs/images/preview-thunderbird.png)
+
+1. Export a Org (.org) file to an iCal (.ics) file using org2ical.
+2. In Thunderbird, select `Events and Tasks > Import...` and follow the steps to import the iCal file.
+3. (Optional) Set category colors:
+   ```
+   DEADLINE : rgb(255, 128, 128)
+   SCHEDULED: rgb(128, 192, 128)
+   TIMESTAMP: rgb(128, 128, 255)
+   CLOCK    : rgb(255, 192, 128)
+   ```
+4. (Optional) Fill events with category color by following [this Stack Overflow answer](https://stackoverflow.com/a/74842106).
