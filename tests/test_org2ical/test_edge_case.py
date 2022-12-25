@@ -114,3 +114,16 @@ def test_deadline2():
     ]
     compare(org_str, icals, include_types={"DEADLINE", "DEADLINE", "TIMESTAMP", "CLOCK"},
             warnings=["WARNING: Multiple DEADLINE keywords found in node: `Entry`."])
+
+def test_multiple_repeater():
+    org_str = textwrap.dedent("""\
+    * Entry
+    DEADLINE: <2022-01-01 Sat 10:00 +2w> SCHEDULED: <2022-01-01 Sat 10:00 +2w>
+    <2022-01-01 Sat 10:00 +2w>
+    """)
+    icals = [
+        iCalEntry("2022-01-01 10:00:00+00:00", None, "Entry", "<2022-01-01 Sat 10:00 +2w>", "SCHEDULED", "FREQ=WEEKLY;INTERVAL=2"),
+        iCalEntry("2022-01-01 10:00:00+00:00", None, "Entry", "<2022-01-01 Sat 10:00 +2w>", "DEADLINE", "FREQ=WEEKLY;INTERVAL=2"),
+        iCalEntry("2022-01-01 10:00:00+00:00", None, "Entry", "<2022-01-01 Sat 10:00 +2w>", "TIMESTAMP", "FREQ=WEEKLY;INTERVAL=2"),
+    ]
+    compare(org_str, icals, include_types={"DEADLINE", "SCHEDULED", "TIMESTAMP", "CLOCK"})

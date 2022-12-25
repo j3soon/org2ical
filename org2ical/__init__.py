@@ -49,11 +49,14 @@ def loads(
         dt = dt.astimezone(tz=from_tz)
         return dt.strftime("%Y%m%dT%H%M%SZ")
 
-    def _encode_date(d: Union[date, datetime]) -> str:
+    def _encode_date(d: Union[date, datetime], is_range_end=False) -> str:
         """Encodes a date or datetime object into an iCalendar-compatible
         string."""
         if isinstance(d, datetime):
             return _encode_datetime(d)
+        if is_range_end:
+            dt = datetime.combine(d, datetime.max.time())
+            return _encode_datetime(dt)
         return d.strftime("%Y%m%d")
 
     def _encode_rrule(cookie: Tuple[str, str, str]) -> str:
@@ -198,7 +201,7 @@ def loads(
             rangelist = node.get_timestamps(active=True, range=True)
             for d in rangelist:
                 start = _encode_date(d.start)
-                end = _encode_date(d.end)
+                end = _encode_date(d.end, is_range_end=True)
                 rrule = _encode_rrule(d._repeater)
                 ical_entries.append(_construct_vevent(
                     now_str, start, end, summary, description,
