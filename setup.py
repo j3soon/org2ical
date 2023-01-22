@@ -34,7 +34,7 @@ setuptools.setup(
     package_dir={"": "."},
     packages=setuptools.find_packages(where=".", exclude=("tests*",)),
     install_requires=[
-        # TODO: Add orgparse after merged
+        "orgparse>=0.3.2"
     ],
     extras_require={
         "testing": ["pytest", "mypy", "flake8", "pylint", "icalendar", "python-dateutil"],

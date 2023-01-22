@@ -16,7 +16,6 @@ This package is especially useful if your OrgMode file is too large to be export
 Installation:
 
 ```sh
-pip install git+https://github.com/karlicoss/orgparse.git@refs/pull/60/head
 pip install -U org2ical
 ```
 

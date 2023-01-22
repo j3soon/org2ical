@@ -29,8 +29,7 @@ jobs:
     - name: Prepare code coverage data
       if: matrix.platform == 'ubuntu-latest' && matrix.python-version == 3.9
       run: |
-        # TODO: Use pip install orgparse after merged
-        pip install git+https://github.com/karlicoss/orgparse.git@refs/pull/60/head
+        pip install orgparse
         pip install icalendar python-dateutil pytest pytest-cov
         pytest --cov=./ --cov-report xml
     - name: Upload coverage to Codecov
