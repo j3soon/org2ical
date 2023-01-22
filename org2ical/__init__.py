@@ -41,6 +41,9 @@ def loads(
                    else {"ARCHIVE"})
     include_types = (include_types if include_types is not None
                      else {DEADLINE, SCHEDULED, TIMESTAMP})
+    diff = include_types - {DEADLINE, SCHEDULED, TIMESTAMP, CLOCK}
+    if len(diff) > 0:
+        raise ValueError(f"Invalid include_types: {diff}")
 
     def _encode_datetime(dt: datetime) -> str:
         """Encodes a datetime object into an iCalendar-compatible string."""

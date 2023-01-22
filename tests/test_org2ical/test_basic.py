@@ -41,7 +41,7 @@ def test_scheduled():
     compare(org_str, icals)
     compare(org_str, icals, include_types={"SCHEDULED"})
     compare(org_str, [], ignore_states={"DONE", "CANCELED", None, "TODO"})
-    compare(org_str, [], include_types={})
+    compare(org_str, [], include_types=set())
 
 def test_deadline():
     org_str = textwrap.dedent("""\
@@ -79,7 +79,7 @@ def test_deadline():
     compare(org_str, icals)
     compare(org_str, icals, include_types={"DEADLINE"})
     compare(org_str, [], ignore_states={"DONE", "CANCELED", None, "TODO"})
-    compare(org_str, [], include_types={})
+    compare(org_str, [], include_types=set())
 
 def test_timestamp():
     org_str = textwrap.dedent("""\
@@ -148,7 +148,7 @@ def test_timestamp():
     compare(org_str, icals)
     compare(org_str, icals, include_types={"TIMESTAMP"})
     compare(org_str, [], ignore_states={"DONE", "CANCELED", None, "TODO"})
-    compare(org_str, [], include_types={})
+    compare(org_str, [], include_types=set())
 
 def test_clock():
     org_str = textwrap.dedent("""\
