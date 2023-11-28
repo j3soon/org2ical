@@ -7,7 +7,7 @@
 # pylint: disable=too-many-statements
 import hashlib
 import textwrap
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timezone, timedelta
 from typing import List, Optional, Set, Tuple, Union
 
 import orgparse
@@ -58,8 +58,7 @@ def loads(
         if isinstance(d, datetime):
             return _encode_datetime(d)
         if is_range_end:
-            dt = datetime.combine(d, datetime.max.time())
-            return _encode_datetime(dt)
+            d += timedelta(days=1)
         return d.strftime("%Y%m%d")
 
     def _encode_rrule(cookie: Tuple[str, str, str]) -> str:

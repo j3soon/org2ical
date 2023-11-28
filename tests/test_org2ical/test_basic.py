@@ -138,7 +138,7 @@ def test_timestamp():
         iCalEntry("2022-01-01", None, "Timestamp", "<2022-01-01 Sat>", "TIMESTAMP"),
         iCalEntry("2022-01-01", None, "Timestamp Todo", "<2022-01-01 Sat>\ntimestamp", "TIMESTAMP"),
         iCalEntry("2022-01-01 10:00:00+00:00", None, "Timestamp Time Todo", "<2022-01-01 Sat 10:00>", "TIMESTAMP"),
-        iCalEntry("2022-01-01", "2022-01-08 23:59:59+00:00", "Timestamp Date Range Todo", "<2022-01-01 Sat>--<2022-01-08 Sat>", "TIMESTAMP"),
+        iCalEntry("2022-01-01", "2022-01-09", "Timestamp Date Range Todo", "<2022-01-01 Sat>--<2022-01-08 Sat>", "TIMESTAMP"),
         iCalEntry("2022-01-01 10:00:00+00:00", "2022-01-08 11:00:00+00:00", "Timestamp Time Range Todo", "<2022-01-01 Sat 10:00>--<2022-01-08 Sat 11:00>", "TIMESTAMP"),
         iCalEntry("2022-01-01 10:00:00+00:00", "2022-01-01 11:00:00+00:00", "Timestamp Time Range in Day Todo", "<2022-01-01 Sat 10:00-11:00>", "TIMESTAMP"),
         iCalEntry("2022-01-01 20:00:00+00:00", "2022-01-01 22:00:00+00:00", "Repeated Timestamp Todo", "<2022-01-01 Sat 20:00-22:00 +1w>", "TIMESTAMP", "FREQ=WEEKLY;INTERVAL=1"),

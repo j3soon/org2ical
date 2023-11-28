@@ -45,7 +45,7 @@ def test_Timestamps():
         iCalEntry("2006-11-01 19:15:00+00:00", None, "Meet Peter at the movies", "  <2006-11-01 Wed 19:15>", "TIMESTAMP"),
         iCalEntry("2006-11-02 20:00:00+00:00", "2006-11-02 22:00:00+00:00", "Discussion on climate change", "  <2006-11-02 Thu 20:00-22:00>", "TIMESTAMP"),
         iCalEntry("2007-05-16 12:30:00+00:00", None, "Pick up Sam at school", "  <2007-05-16 Wed 12:30 +1w>", "TIMESTAMP", "FREQ=WEEKLY;INTERVAL=1"),
-        iCalEntry("2004-08-23", "2004-08-26 23:59:59+00:00", "Meeting in Amsterdam", "   <2004-08-23 Mon>--<2004-08-26 Thu>", "TIMESTAMP", parents=["Meetings"]),
+        iCalEntry("2004-08-23", "2004-08-27", "Meeting in Amsterdam", "   <2004-08-23 Mon>--<2004-08-26 Thu>", "TIMESTAMP", parents=["Meetings"]),
     ]
     compare(org_str, icals)
 

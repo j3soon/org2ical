@@ -1,5 +1,7 @@
 import textwrap
 
+import dateutil.tz
+
 from .utils import compare, iCalEntry
 
 def test_scheduled_space_deadline():
@@ -127,3 +129,13 @@ def test_multiple_repeater():
         iCalEntry("2022-01-01 10:00:00+00:00", None, "Entry", "<2022-01-01 Sat 10:00 +2w>", "TIMESTAMP", "FREQ=WEEKLY;INTERVAL=2"),
     ]
     compare(org_str, icals, include_types={"DEADLINE", "SCHEDULED", "TIMESTAMP", "CLOCK"})
+
+def test_timestamp_range_with_timezone():
+    org_str = textwrap.dedent("""\
+    * Entry
+    <2023-12-05 Tue>--<2023-12-20 Wed>
+    """)
+    icals = [
+        iCalEntry("2023-12-05", "2023-12-21", "Entry", "<2023-12-05 Tue>--<2023-12-20 Wed>", "TIMESTAMP"),
+    ]
+    compare(org_str, icals, include_types={"TIMESTAMP"}, to_tz=dateutil.tz.gettz('Asia/Taipei'))
