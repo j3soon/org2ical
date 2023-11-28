@@ -7,7 +7,7 @@ github_url = "https://github.com/j3soon/org2ical"
 
 setuptools.setup(
     name="org2ical",
-    version="0.0.3",
+    version="0.0.4",
     author="Johnson",
     author_email="j3.soon777@gmail.com",
     description="Generate a iCalendar (.ics) file based on a OrgMode (.org) file.",
